@@ -1,0 +1,314 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 4%;
+
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 40%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 0 0% 53%;
+    --accent-foreground: 0 0% 4%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 98%;
+
+    --radius: 0.5rem;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    @apply bg-background text-foreground;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fafafa;
+  }
+}
+
+/* Grain/Noise Overlay */
+.grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+}
+
+.grain-overlay::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  animation: grain 8s steps(10) infinite;
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+/* Typography utilities */
+.font-display {
+  font-family: 'Bebas Neue', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.85;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Section spacing */
+.section-padding {
+  padding: 8rem 2rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding: 12rem 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding: 16rem 6rem;
+  }
+}
+
+/* Image grayscale filter */
+.img-editorial {
+  filter: grayscale(100%);
+  transition: filter 0.6s ease;
+}
+
+.img-editorial:hover {
+  filter: grayscale(0%);
+}
+
+/* ============================================
+   MONOCHROME LUMINANCE EFFECTS
+   Pure B&W editorial with light as the accent
+   ============================================ */
+
+/* Luminance accent line — pure white fade */
+.accent-line {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.4), rgba(255,255,255,0.08), transparent);
+  border: none;
+}
+
+/* Glass card effect — monochrome */
+.glass-card {
+  background: rgba(17, 17, 17, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.04), 0 20px 60px rgba(0, 0, 0, 0.3);
+  transform: translateY(-6px);
+}
+
+/* Glow dot animation — white luminance */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 4px rgba(255,255,255,0.6), 0 0 8px rgba(255,255,255,0.3);
+  }
+  50% {
+    box-shadow: 0 0 8px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.4), 0 0 30px rgba(255,255,255,0.15);
+  }
+}
+
+.glow-dot {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* 3D tilt effect container */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease, box-shadow 0.4s ease;
+}
+
+.tilt-card:hover {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 255, 255, 0.03);
+}
+
+/* Form input styling — monochrome */
+.form-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #333;
+  padding: 12px 0;
+  font-size: 0.95rem;
+  color: #f0f0f5;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.3s ease;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.form-input:focus {
+  border-bottom-color: rgba(255, 255, 255, 0.6);
+}
+
+.form-input::placeholder {
+  color: #555;
+}
+
+/* Submit button — monochrome inverted */
+.btn-submit {
+  background: white;
+  color: #0a0a0a;
+  padding: 14px 48px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.12), 0 0 60px rgba(255, 255, 255, 0.06);
+  transform: translateY(-2px);
+}
+
+.btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Smooth category filter transition */
+.project-card-enter {
+  animation: cardFadeIn 0.5s ease forwards;
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Tech badge pill — monochrome */
+.tech-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid #333;
+  color: #888;
+  transition: all 0.3s ease;
+}
+
+.tech-badge:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ccc;
+}
+
+/* Cert card — monochrome glass */
+.cert-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.5rem;
+  transition: all 0.4s ease;
+}
+
+.cert-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.04);
+  transform: translateY(-4px);
+}
+
+/* Subtle shimmer effect — monochrome */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-line {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.06) 75%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 6s ease-in-out infinite;
+}
