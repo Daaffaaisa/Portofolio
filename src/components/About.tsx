@@ -88,13 +88,14 @@ export function About() {
             {...fadeInUp}
             transition={{ ...fadeInUp.transition, delay: 0.2 }}
           >
-            <div className="w-full aspect-video bg-[#111111] border border-gray-800 rounded-lg flex items-center justify-center">
-              <div className="text-center">
-                <p className="font-display text-4xl text-white mb-2">87.9%</p>
-                <p className="text-sm text-gray-500 tracking-widest uppercase">Classification Accuracy</p>
-                <p className="text-xs text-gray-600 mt-2">MobileNetV3 Small, 10-class Eye Disease Detection</p>
+            <div className="w-full aspect-video border border-gray-800 rounded-lg overflow-hidden group relative">
+                <img 
+                  src="/IDSS.JPG" 
+                  alt="AI/ML Internship at IDSS UDINUS" 
+                  className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500 pointer-events-none"></div>
               </div>
-            </div>
             <p className="mt-4 text-xs text-gray-500 tracking-widest uppercase">
               IDSS UDINUS, SEMARANG / ID<br />
               (2025)
